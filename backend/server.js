@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import dotenv from "dotenv"
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import User from "./Models/model.js";
@@ -8,8 +9,10 @@ import User from "./Models/model.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+dotenv.config();
+
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const URL = "mongodb://127.0.0.1:27017/CURDAPP";
 
 // Middleware
