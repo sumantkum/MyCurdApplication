@@ -13,15 +13,14 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const URL = "mongodb://127.0.0.1:27017/CURDAPP";
+const URL = process.env.MONGO_URL;
 
 // Middleware
 app.use(express.json());
 app.use(cors()); // Allow cross-origin requests
 
 // MongoDB Connection
-mongoose
-  .connect(URL)
+mongoose.connect(URL)
   .then(() => console.log("MongoDB connected successfully"))
   .catch((err) => console.log("MongoDB connection error:", err));
 
@@ -29,7 +28,7 @@ mongoose
 app.post("/api/users", async (req, res) => {
   const { name, email, address, phone, age } = req.body;
 
-  if (!name || !email) {
+  if (!name || !email || !address || !phone || !age) {
     return res.status(400).json({ message: "Name and email are required." });
   }
 
@@ -81,7 +80,7 @@ app.put("/api/users/:id", async (req, res) => {
 
   try {
     const updatedUser = await User.findByIdAndUpdate(id, req.body, {
-      new: true,
+      new: true, 
     });
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
