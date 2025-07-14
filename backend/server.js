@@ -24,7 +24,7 @@ mongoose.connect(URL)
   .then(() => console.log("MongoDB connected successfully"))
   .catch((err) => console.log("MongoDB connection error:", err));
 
-// CREATE - POST
+// CREATE Use Post
 app.post("/api/users", async (req, res) => {
   const { name, email, address, phone, age } = req.body;
 
